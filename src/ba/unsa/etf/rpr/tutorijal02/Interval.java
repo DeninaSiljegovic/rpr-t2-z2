@@ -21,18 +21,9 @@ public class Interval {
     }
 
     public boolean isIn (double tacka){
-        if(!pocetna_pripada && !krajnja_pripada)
-            if( tacka > pocetna_tacka && tacka < krajnja_tacka ) return true;
-
-        else if( pocetna_pripada && krajnja_pripada )
-            if( tacka >= pocetna_tacka && tacka <= krajnja_tacka ) return true;
-
-        else if(pocetna_pripada && !krajnja_pripada)
-            if( tacka >= pocetna_tacka && tacka < krajnja_tacka ) return true;
-
-        else if(!pocetna_pripada && krajnja_pripada)
-            if( tacka > pocetna_tacka && tacka <= krajnja_tacka ) return true;
-
+        if(pocetna_pripada && tacka==pocetna_tacka) return true;
+        if(krajnja_pripada && tacka==krajnja_tacka) return true;
+        if(tacka > pocetna_tacka && tacka < krajnja_tacka) return true;
         return false;
     }
 
@@ -62,6 +53,27 @@ public class Interval {
 
     public static Interval intersect(Interval i1, Interval i2){
         return i1.intersect(i2);
+    }
+
+    @Override
+    public boolean equals (Object o)  {
+        if (!(o instanceof Interval)) return false;
+        Interval i = (Interval) o;
+        if(pocetna_tacka == i.pocetna_tacka && krajnja_tacka == i.krajnja_tacka){
+            if( pocetna_pripada == i.pocetna_pripada && krajnja_pripada == i.krajnja_pripada)
+                return true;
+        }
+        return false;
+    }
+
+    @Override
+    public String toString(){
+        if(pocetna_tacka==0 & krajnja_tacka==0) return "()";
+        if(!pocetna_pripada && !krajnja_pripada) return "(" + pocetna_tacka + "," + krajnja_tacka + ")";
+        if(pocetna_pripada && !krajnja_pripada) return "[" + pocetna_tacka + "," + krajnja_tacka + ")";
+        if(!pocetna_pripada && krajnja_pripada) return "(" + pocetna_tacka + "," + krajnja_tacka + "]";
+
+        return "[" + pocetna_tacka + "," + krajnja_tacka + "]";
     }
 
 }
